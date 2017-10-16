@@ -1,7 +1,7 @@
 {
     "coin": "monero",
     "symbol": "XMR",
-    "coinUnits": 100000000,
+    "coinUnits": 1000000000000,
     "coinDifficultyTarget": 120,
 
     "logging": {
@@ -19,23 +19,23 @@
     "poolServer": {
         "enabled": true,
         "clusterForks": "auto",
-        "poolAddress": "4A2Gv6uMc3vZsGMTEMnBsgaJMtQeEBCzaigneqJN8bzkTit2Di5MVm2fjE9rfWMz4yMVxSBL3Q9QzbafXUBXzUcANNnjjEn",
+        "poolAddress": "44SnRTKJAz1fL4cUP2WWsnHZXLshVV2C7K35fJNNVKi59jzoy56Bw9KbVxnsccfQfm8ZMnshdisF46hFVnTuHFFCJ5wrLfV",
         "blockRefreshInterval": 1000,
         "minerTimeout": 900,
         "ports": [
             {
                 "port": 3333,
-                "difficulty": 1000,
+                "difficulty": 100,
                 "desc": "Low end hardware"
             },
             {
                 "port": 5555,
-                "difficulty": 2000,
+                "difficulty": 1000,
                 "desc": "Mid range hardware"
             },
             {
                 "port": 7777,
-                "difficulty": 10000,
+                "difficulty": 2000,
                 "desc": "High end hardware"
             },
             {
@@ -46,16 +46,17 @@
             }
         ],
         "varDiff": {
-            "minDiff": 100,
-            "maxDiff": 200000,
+            "minDiff": 2,
+            "maxDiff": 50000,
             "targetTime": 100,
-            "retargetTime": 30,
+            "retargetTime": 60,
             "variancePercent": 30,
-            "maxJump": 100
+            "maxJump": 10
         },
         "fixedDiff": {
             "enabled": true,
-            "addressSeparator": "."
+            "addressSeparator": "+",
+            "workerSeparator": "."
         },
         "shareTrust": {
             "enabled": true,
@@ -105,7 +106,7 @@
         "sslcert": "./certs/cert.pem",
         "sslkey": "./certs/privkey.pem",
         "sslca": "./certs/chain.pem",
-        "password": "your_password"
+        "password": "770108"
     },
 
     "daemon": {
@@ -115,7 +116,7 @@
 
     "wallet": {
         "host": "127.0.0.1",
-        "port": 18082
+        "port": 8082
     },
 
     "redis": {
