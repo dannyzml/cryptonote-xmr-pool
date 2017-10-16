@@ -69,7 +69,7 @@ Comes with lightweight example front-end script which uses the pool's AJAX API.
 * Universal blocks and transactions explorer based on [chainradar.com](http://chainradar.com)
 * FantomCoin support is not currently working after fixes to get node modules to work after Mar 23, 2016 fork.
 * MonetaVerde support not tested since changes for monero fork
-* [NEW]Set miner's name and fixed difficulty on miner client by passing "address" param with ".[minername]+[difficulty]" postfix. eg: 4BCe....CgvCDm.miner01+2000
+* [NEW]Set miner's name and fixed difficulty on miner client by passing "address" param with ".[name]+[difficulty]" postfix. eg: 4BCe....CgvCDm.miner01+2000
 * Prevent "transaction is too big" error with "payments.maxTransactionAmount" option
 * [NEW]Add Worker stats pannel
 
