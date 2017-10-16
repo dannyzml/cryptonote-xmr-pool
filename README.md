@@ -219,9 +219,9 @@ Explanation for each field:
         "interval": 30,
         "depth": 60,
         "poolFee": 2,
-        "devDonation": 0.01,
-        "coreDevDonation": 0.01,
-        "extraFeaturesDevDonation":0.01
+        "devDonation": 0.1,
+        "coreDevDonation": 0.1,
+        "extraFeaturesDevDonation":0.1
     },
 
     "api": {
