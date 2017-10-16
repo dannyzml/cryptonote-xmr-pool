@@ -330,7 +330,8 @@
                 $('#poolLastBlockFound').removeAttr('title').data('ts', '').update('Never');
 
             //updateText('poolRoundHashes', lastStats.pool.roundHashes.toString());
-            updateText('poolMiners', lastStats.pool.miners.toString());
+//            updateText('poolMiners', lastStats.pool.miners.toString());
+            updateText('poolMiners', lastStats.pool.workers.toString());
 
 
             var totalFee = lastStats.config.fee;
