@@ -1,0 +1,132 @@
+<style>
+    .workersStatHolder > span {
+        display: inline-block;
+        border-radius: 5px;
+        padding: 1px 9px;
+        border: 1px solid #e5e5e5;
+        margin: 2px;
+    }
+
+    .workersStatHolder > span > span, .text-danger {
+        font-weight: bold;
+    }
+
+    #workers_rows > tr > td {
+        vertical-align: middle;
+        font-family: 'Inconsolata', monospace;
+        font-size: 0.95em;
+    }
+</style>
+
+<div class="workersStatHolder">
+    <span class="bg-primary">Total Workers: <span id="workersTotal"></span></span>
+    <span class="bg-primary">Total Hashes Submitted: <span id="yourHashes"></span></span>
+</div>
+
+<hr>
+
+<div class="table-responsive">
+    <table class="table table-hover table-striped" id="workers_tab">
+        <thead>
+        <tr>
+            <th><i class="fa fa-tag"></i> Name</th>
+            <th><i class="fa fa-paw"></i> Difficulty</th>
+            <th><i class="fa fa-cube"></i> Hashes</th>
+            <th><i class="fa fa-clock-o"></i> Time Update</th>
+        </tr>
+        </thead>
+        <tbody id="workers_rows">
+
+        </tbody>
+    </table>
+</div>
+
+
+<script>
+
+
+
+    function getTransactionUrl(id) {
+        return transactionExplorer.replace('{symbol}', lastStats.config.symbol.toLowerCase()).replace('{id}', id);
+    }
+    var dateNow = Date.now();
+    var dateNowSeconds = dateNow / 1000 | 0;
+    var xhrGetPayments;
+    currentPage = {
+        destroy: function () {
+            if (xhrGetPayments) xhrGetPayments.abort();
+        },
+        update: function () {
+
+            if (xhrGetPayments) xhrGetPayments.abort();
+            xhrGetPayments = $.ajax({
+                url: api + '/worker_stats',
+                data: {address: docCookies.getItem('mining_address')},
+                dataType: 'json',
+                cache: 'false',
+                success: function (data) {
+                    if (data) {
+                        $('#workers_rows').empty();
+                        var j = 0;
+                        var total = 0;
+                        var items = [];
+                        $.each(data, function (i, n) {
+                            var workerStats = {};
+                            workerStats.name = i;
+                            var arr = n.split(":");
+                            workerStats.diff = arr[0];
+//                            workerStats.rate = (arr[0] * (2^256 / (2^208*65535) / 600) /1000/(arr[2]-arr[1])).toFixed(2);
+                            workerStats.time = arr[2];
+                            workerStats.hashes = arr[3];
+                            total += parseInt(arr[3]);
+                            workerStats.timediff = dateNowSeconds - arr[2];
+
+                            items.push(workerStats);
+
+                            j++;
+                        });
+
+
+                        items.sort(function (a, b) {
+                            if (a.name > b.name) {
+                                return 1;
+                            }
+                            if (a.name < b.name) {
+                                return -1;
+                            }
+                            // a 必须等于 b
+                            return 0;
+                        });
+
+                        $.each(items, function(i, n){
+                            $('#workers_rows').append('<tr>' + setWorkerStatsCells(n) + '</tr>');
+                        });
+
+                        updateText('workersTotal', j);
+                        updateText('yourHashes', total);
+                    }
+                }
+            });
+
+        }
+    };
+
+
+    function setWorkerStatsCells(workerStats) {
+
+        var cls = 'text-muted';
+        if(15 * 60 < workerStats.timediff){
+            cls = 'text-danger bg-danger';
+        }else if(3 * 60 < workerStats.timediff){
+            cls = 'text-warning';
+        }
+
+        var cel = '<td>' + workerStats.name + '</td>' +
+            '<td>' + workerStats.diff + '</td>' +
+            '<td>' + workerStats.hashes + '</td>' +
+            '<td class="'+cls+'">' + $.timeago(new Date(parseInt(workerStats.time) * 1000).toISOString()) + '</td>';
+
+            return cel;
+    }
+
+</script>
