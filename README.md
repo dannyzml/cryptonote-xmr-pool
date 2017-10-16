@@ -357,10 +357,10 @@ node init.js -module=api
 
 #### 5) Host the front-end
 
-Simply host the contents of the `website_example` directory on file server capable of serving simple static files.
+Simply host the contents of the `website` directory on file server capable of serving simple static files.
 
 
-Edit the variables in the `website_example/config.js` file to use your pool's specific configuration.
+Edit the variables in the `website/config.js` file to use your pool's specific configuration.
 Variable explanations:
 
 ```javascript
@@ -378,7 +378,7 @@ var irc = "irc.freenode.net/#ducknote";
 var email = "support@poolhost.com";
 
 /* Market stat display params from https://www.cryptonator.com/widget */
-var cryptonatorWidget = ["XDN-BTC", "XDN-USD", "XDN-EUR"];
+var cryptonatorWidget = ["XDN-BTC", "XDN-USD", "XDN-EUR", "XDN-CNY"];
 
 /* Download link to cryptonote-easy-miner for Windows users. */
 var easyminerDownload = "https://github.com/zone117x/cryptonote-easy-miner/releases/";
